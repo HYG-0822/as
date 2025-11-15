@@ -55,6 +55,7 @@ public class UserController {
     public ResponseEntity<UserApiResponse<String>> signup(@RequestBody SignupUserDTO signupDTO) {
 
         try {
+            System.out.println("*** /signup 엔드포인트 추출됨 ***");
             // 이메일 정보가 누락되었다면 에러 코드로 반응한다
             if (signupDTO.getEmail() == null || signupDTO.getEmail().isEmpty()) {
                 UserApiResponse<String> response = new UserApiResponse<>(

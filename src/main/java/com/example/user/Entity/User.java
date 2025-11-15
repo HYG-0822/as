@@ -27,51 +27,21 @@ public class User {
     @Column(name = "nick_name", nullable = false, length = 100)
     private String nickName;
 
-    @Column(name = "created_at", nullable = false,
-            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_at", insertable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at", nullable = false,
-            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Column(name = "updated_at", insertable = false)
     private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20, columnDefinition = "ENUM('ROLE_ADMIN', 'ROLE_USER') DEFAULT 'ROLE_USER'")
+    @Column(nullable = false, length = 20)
     private Role role = Role.ROLE_USER;
 
-    @Column(name = "is_active", columnDefinition = "BOOLEAN DEFAULT TRUE")
+    @Column(name = "is_active")
     private Boolean isActive = true;
 
-    @Column(name = "last_login_at", columnDefinition = "DATETIME DEFAULT NULL")
+    @Column(name = "last_login_at")
     private LocalDateTime lastLoginAt;
-
-    /** JPA에서 persist 시 createdAt, updatedAt 기본값 세팅 **/
-    @PrePersist
-    protected void onCreate() {
-        if (createdAt == null) {
-            createdAt = LocalDateTime.now();
-        }
-        if (updatedAt == null) {
-            updatedAt = LocalDateTime.now();
-        }
-        if (role == null) {
-            role = Role.ROLE_USER;
-        }
-        if (isActive == null) {
-            isActive = true;
-        }
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
-
-
-    public enum Role {
-        ROLE_ADMIN,
-        ROLE_USER
-    }
 
     public static User fromDTO(SignupUserDTO dto) {
         User user = new User();
@@ -89,5 +59,9 @@ public class User {
         dto.setNick_name(user.getNickName());
         return dto;
     }
-}
 
+    public enum Role {
+        ROLE_ADMIN,
+        ROLE_USER
+    }
+}
