@@ -193,7 +193,7 @@ public class UserController {
             }
 
             // 로그인 사용자
-            String data = "사용자 데이터 : " + userDTO.getNick_name() + "님, 반갑습니다.";
-            return ResponseEntity.ok(new UserApiResponse<String>("success", "로그인 사용자", data));
+//            String data = "사용자 데이터 : " + userDTO.getNick_name() + "님, 반갑습니다.";
+            return ResponseEntity.ok(new UserApiResponse<LoginUserResponseDTO>("success", "로그인 사용자", userDTO));
         }
     }
