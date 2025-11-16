@@ -34,7 +34,7 @@ public class UserController {
         String res = "User 서비스가 동작중 입니다";
         UserApiResponse<String> apiResponse = new UserApiResponse<>(
                 "success",
-                res,
+                "로그인 성공",
                 null);
         return ResponseEntity.ok(apiResponse); // response code : 200
     }

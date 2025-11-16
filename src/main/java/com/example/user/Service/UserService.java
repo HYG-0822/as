@@ -37,11 +37,9 @@ public class UserService {
         User user = userRepository.findByEmail(loginUserDTO.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException(loginUserDTO.getEmail() + " 사용자가 존재하지 않습니다."));
 
-        System.out.println(loginUserDTO.getPassword());
-
         // 패스워드 검증
         boolean isEqual = passwordEncoder.matches(loginUserDTO.getPassword(), user.getPassword());
-        if (isEqual) {
+        if (!isEqual) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다");
         }
 
